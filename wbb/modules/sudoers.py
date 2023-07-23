@@ -268,9 +268,8 @@ async def unban_globally(_, message):
     if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
-        served_chat = await get_served_chats()
         await remove_fmute_user(user.id)
-        await message.chat.unban_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
+        await app.set_chat_permissions(chat_id, ChatPermissions())
         await message.reply_text(f"{user.mention}'s unmuted.'")
 
 
