@@ -269,7 +269,6 @@ async def unmute_globally(_, message):
         await message.reply_text("I don't remember Fmuting him.")
     else:
         await remove_fmute_user(user.id)
-        await app.set_chat_permissions(chat_id, ChatPermissions())
         await message.reply_text(f"{user.mention}'s unmuted.'")
 
 
