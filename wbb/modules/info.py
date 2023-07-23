@@ -28,7 +28,7 @@ from pyrogram.types import Message
 
 from wbb import SUDOERS, app
 from wbb.core.sections import section
-from wbb.utils.dbfunctions import is_gbanned_user, user_global_karma
+from wbb.utils.dbfunctions import is_fmuted_user,is_gbanned_user, user_global_karma
 
 __MODULE__ = "Info"
 __HELP__ = """
@@ -49,6 +49,7 @@ async def get_user_info(user, already=False):
     dc_id = user.dc_id
     photo_id = user.photo.big_file_id if user.photo else None
     is_gbanned = await is_gbanned_user(user_id)
+    is_fmuted = await is_fmuted_user(user_id)
     is_sudo = user_id in SUDOERS
     karma = await user_global_karma(user_id)
     body = {
@@ -60,6 +61,7 @@ async def get_user_info(user, already=False):
         "Sudo": is_sudo,
         "Karma": karma,
         "Gbanned": is_gbanned,
+        "Fmuted": is_fmuted,
     }
     caption = section("User info", body)
     return [caption, photo_id]
