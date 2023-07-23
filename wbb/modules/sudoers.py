@@ -258,7 +258,7 @@ __**New Global Mute**__
 
 @app.on_message(filters.command("unfm") & SUDOERS)
 @capture_err
-async def unban_globally(_, message):
+async def unmute_globally(_, message):
     user_id = await extract_user(message)
     if not user_id:
         return await message.reply_text("I can't find that user.")
