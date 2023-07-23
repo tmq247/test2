@@ -277,9 +277,6 @@ async def unmute_globally(_, message):
         for served_chat in served_chats:
             try:
                 await message.chat.unban_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
-                await asyncio.sleep(1)
-            except FloodWait as e:
-                await asyncio.sleep(int(e.value))
             except Exception:
                 pass
             #await message.chat.unban_member(user_id)
