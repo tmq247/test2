@@ -41,6 +41,7 @@ karmadb = db.karma
 chatsdb = db.chats
 usersdb = db.users
 gbansdb = db.gban
+fmutesdb = db.fmute
 coupledb = db.couple
 captchadb = db.captcha
 solved_captcha_db = db.solved_captcha
@@ -390,6 +391,31 @@ async def remove_gban_user(user_id: int):
     if not is_gbanned:
         return
     return await gbansdb.delete_one({"user_id": user_id})
+
+
+async def get_fmutes_count() -> int:
+    return len([i async for i in fmutesdb.find({"user_id": {"$gt": 0}})])
+
+
+async def is_fmuted_user(user_id: int) -> bool:
+    user = await fmutesdb.find_one({"user_id": user_id})
+    if not user:
+        return False
+    return True
+
+
+async def add_fmute_user(user_id: int):
+    is_fmuted = await is_fmuted_user(user_id)
+    if is_fmuted:
+        return
+    return await fmutesdb.insert_one({"user_id": user_id})
+
+
+async def remove_fmute_user(user_id: int):
+    is_fmuted = await is_fmutned_user(user_id)
+    if not is_fmuted:
+        return
+    return await fmutesdb.delete_one({"user_id": user_id})
 
 
 async def _get_lovers(chat_id: int):
