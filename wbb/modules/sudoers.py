@@ -191,7 +191,7 @@ async def unban_globally(_, message):
 
 @app.on_message(filters.command("m") & ~filters.private)
 @capture_err
-async def ban_globally(_, message):
+async def mute_globally(_, message):
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
     from_user = message.from_user
@@ -258,8 +258,9 @@ __**New Global Mute**__
 
 @app.on_message(filters.command("um") & ~filters.private)
 @capture_err
-async def unban_globally(_, message):
+async def unmute_globally(_, message):
     user_id = await extract_user(message)
+    served_chats = await get_served_chats()
     if not user_id:
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
@@ -268,8 +269,9 @@ async def unban_globally(_, message):
     if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
+        served_chat in served_chats
         await remove_fmute_user(user.id)
-        await message.chat.unban_member(user_id)
+        await message.chat.unban_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
         await message.reply_text(f"{user.mention}'s unmuted.'")
 
 
