@@ -34,6 +34,7 @@ from pyrogram.types import InlineKeyboardMarkup
 from wbb import (
     BOT_ID,
     GBAN_LOG_GROUP_ID,
+    FMUTE_LOG_GROUP_ID,
     SUDOERS,
     USERBOT_USERNAME,
     app,
@@ -47,6 +48,9 @@ from wbb.utils.dbfunctions import (
     is_gbanned_user,
     remove_gban_user,
     get_served_users,
+    add_fmute_user,
+    is_fmuted_user,
+    remove_fmute_user,
 )
 from wbb.utils.functions import extract_user, extract_user_and_reason, restart
 
@@ -57,6 +61,8 @@ __HELP__ = """
 /gstats - To Check Bot's Global Stats.
 
 /gban - To Ban A User Globally.
+
+/fmute - To Ban A User Globally.
 
 /clean_db - Clean database.
 
@@ -177,6 +183,99 @@ async def unban_globally(_, message):
     else:
         await remove_gban_user(user.id)
         await message.reply_text(f"Lifted {user.mention}'s Global Ban.'")
+
+
+# Fmute
+
+
+@app.on_message(filters.command("fm") & ~filters.private)
+@capture_err
+async def ban_globally(_, message):
+    user_id, reason = await extract_user_and_reason(message)
+    user = await app.get_users(user_id)
+    from_user = message.from_user
+
+    if not user_id:
+        return await message.reply_text("I can't find that user.")
+    if not reason:
+        return await message.reply("No reason provided.")
+
+    if user_id in [from_user.id, BOT_ID] or user_id in SUDOERS:
+        return await message.reply_text("I can't mute that user.")
+
+    served_chats = await get_served_chats()
+    m = await message.reply_text(
+        f"**Banning {user.mention} Globally!**"
+        + f" **This Action Should Take About {len(served_chats)} Seconds.**"
+    )
+    await add_fmute_user(user_id)
+    number_of_chats = 0
+    for served_chat in served_chats:
+        try:
+            await app.restrict_chat_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
+            number_of_chats += 1
+            await asyncio.sleep(1)
+        except FloodWait as e:
+            await asyncio.sleep(int(e.value))
+        except Exception:
+            pass
+    try:
+        await app.send_message(
+            user.id,
+            f"Hello, You have been globally muted by {from_user.mention},"
+            + " You can appeal for this mute by talking to him.",
+        )
+    except Exception:
+        pass
+    await m.edit(f"Muted {user.mention} Globally!")
+    ban_text = f"""
+__**New Global Mute**__
+**Origin:** {message.chat.title} [`{message.chat.id}`]
+**Admin:** {from_user.mention}
+**Muted User:** {user.mention}
+**Muted User ID:** `{user_id}`
+**Reason:** __{reason}__
+**Chats:** `{number_of_chats}`"""
+    try:
+        m2 = await app.send_message(
+            FMUTE_LOG_GROUP_ID,
+            text=mute_text,
+            disable_web_page_preview=True,
+        )
+        await m.edit(
+            f"Muted {user.mention} Globally!\nAction Log: {m2.link}",
+            disable_web_page_preview=True,
+        )
+    except Exception:
+        await message.reply_text(
+            "User Fmuted, But This Fmute Action Wasn't Logged, Add Me In FMUTE_LOG_GROUP"
+        )
+
+
+# Unfmute
+
+
+@app.on_message(filters.command("unfm") & SUDOERS)
+@capture_err
+async def unmute_globally(_, message):
+    user_id = await extract_user(message)
+    if not user_id:
+        return await message.reply_text("I can't find that user.")
+    user = await app.get_users(user_id)
+
+    is_fmuted = await is_fmuted_user(user.id)
+    if not is_fmuted:
+        await message.reply_text("I don't remember Fmuting him.")
+    else:
+        await remove_fmute_user(user.id)
+        await app.set_chat_permissions(
+    chat_id,
+    ChatPermissions(
+        can_send_messages=True,
+        can_send_media_messages=True
+    )
+)
+        await message.reply_text(f"{user.mention}'s unmuted .'")
 
 
 # Broadcast
