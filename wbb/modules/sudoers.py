@@ -256,7 +256,7 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("um") & SUDOERS)
+@app.on_message(filters.command("um") & ~filters.private)
 @capture_err
 async def unmute_globally(_, message):
     user_id = await extract_user(message)
