@@ -183,7 +183,7 @@ async def unban_globally(_, message):
     else:
         int = chat_id
         await remove_gban_user(user.id)
-        await app.unban_chat_member(chat_id, user_id)
+        await app.unban_chat_member(user_id)
         await message.reply_text(f"Lifted {user.mention}'s Global Ban.'")
 
 
