@@ -29,7 +29,7 @@ import time
 import psutil
 from pyrogram import filters, types
 from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import ChatPermissions, InlineKeyboardMarkup
 
 from wbb import (
     BOT_ID,
