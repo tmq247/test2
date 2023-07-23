@@ -229,7 +229,7 @@ async def mute_globally(_, message):
     except Exception:
         pass
     await m.edit(f"Muted {user.mention} Globally!")
-    ban_text = f"""
+    mute_text = f"""
 __**New Global Mute**__
 **Origin:** {message.chat.title} [`{message.chat.id}`]
 **Admin:** {from_user.mention}
@@ -269,7 +269,7 @@ async def unmute_globally(_, message):
         await message.reply_text("I don't remember Fmuting him.")
     else:
         await remove_fmute_user(user.id)
-        await message.chat.unban_member(user_id)
+        await message.chat.unban_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
         await message.reply_text(f"{user.mention}'s unmuted.'")
 
 
