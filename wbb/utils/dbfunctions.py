@@ -412,7 +412,7 @@ async def add_fmute_user(user_id: int):
 
 
 async def remove_fmute_user(user_id: int):
-    is_fmuted = await is_fmuted_user(user_id)
+    is_fmuted = await is_fmutned_user(user_id)
     if not is_fmuted:
         return
     return await fmutesdb.delete_one({"user_id": user_id})
