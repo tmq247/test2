@@ -256,7 +256,7 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("um") & SUDOERS)
+@app.on_message(filters.command("um") && ~filters.private)
 @capture_err
 async def unban_globally(_, message):
     user_id = await extract_user(message)
@@ -264,8 +264,8 @@ async def unban_globally(_, message):
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
 
-    is_gbanned = await is_fmuted_user(user.id)
-    if not is_gbanned:
+    is_fmuted = await is_fmuted_user(user.id)
+    if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
         await remove_fmute_user(user.id)
