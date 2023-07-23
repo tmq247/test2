@@ -62,7 +62,7 @@ __HELP__ = """
 
 /gban - To Ban A User Globally.
 
-/fmute - To Ban A User Globally.
+/fm - To Ban A User Globally.
 
 /clean_db - Clean database.
 
