@@ -169,7 +169,7 @@ __**New Global Ban**__
 # Ungban
 
 
-@app.on_message(filters.command("ungban",um) & SUDOERS)
+@app.on_message(filters.command("ungban","um") & SUDOERS)
 @capture_err
 async def unban_globally(_, message):
     user_id = await extract_user(message)
