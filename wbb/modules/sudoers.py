@@ -260,7 +260,6 @@ __**New Global Mute**__
 @capture_err
 async def unmute_globally(_, message):
     user_id = await extract_user(message)
-    served_chats = await get_served_chats()
     if not user_id:
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
@@ -270,8 +269,7 @@ async def unmute_globally(_, message):
         await message.reply_text("I don't remember Fmuting him.")
     else:
         await remove_fmute_user(user.id)
-        await message.chat.unban_member(served_chats["chat_id"], user_id, permissions=ChatPermissions())
-        number_of_chats += 1
+        await message.chat.unban_member(user_id, permissions=ChatPermissions())
         await message.reply_text(f"{user.mention}'s unmuted.'")
 
 
