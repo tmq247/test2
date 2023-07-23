@@ -55,6 +55,7 @@ from wbb.utils.dbfunctions import (
     has_solved_captcha_once,
     is_captcha_on,
     is_gbanned_user,
+    is_fmuted_user,
     save_captcha_solved,
     set_welcome,
     update_captcha_cache,
@@ -130,6 +131,15 @@ async def welcome(_, message: Message):
                     f"{member.mention} was globally banned, and got removed,"
                     + " if you think this is a false gban, you can appeal"
                     + " for this ban in support chat."
+                )
+                continue
+
+            if await is_fmuted_user(member.id):
+                await app.restrict_chat_member(member.id)
+                await message.reply_text(
+                    f"{member.mention} was globally muted, and got removed,"
+                    + " if you think this is a false fmute, you can appeal"
+                    + " for this mute in support chat."
                 )
                 continue
 
