@@ -62,7 +62,7 @@ __HELP__ = """
 
 /gban - To Ban A User Globally.
 
-/fm - To Ban A User Globally.
+/m - To Ban A User Globally.
 
 /clean_db - Clean database.
 
@@ -169,7 +169,7 @@ __**New Global Ban**__
 # Ungban
 
 
-@app.on_message(filters.command("ungban") & SUDOERS)
+@app.on_message(filters.command("ungban",um) & SUDOERS)
 @capture_err
 async def unban_globally(_, message):
     user_id = await extract_user(message)
@@ -189,7 +189,7 @@ async def unban_globally(_, message):
 # Fmute
 
 
-@app.on_message(filters.command("fm") & ~filters.private)
+@app.on_message(filters.command("m") & ~filters.private)
 @capture_err
 async def mute_globally(_, message):
     user_id, reason = await extract_user_and_reason(message)
@@ -206,7 +206,7 @@ async def mute_globally(_, message):
 
     served_chats = await get_served_chats()
     m = await message.reply_text(
-        f"**Banning {user.mention} Globally!**"
+        f"**Muting {user.mention} Globally!**"
         + f" **This Action Should Take About {len(served_chats)} Seconds.**"
     )
     await add_fmute_user(user_id)
@@ -253,24 +253,6 @@ __**New Global Mute**__
         )
 
 
-# Unfmute
-
-
-@app.on_message(filters.command("unfm") & SUDOERS)
-@capture_err
-async def unban_globally(_, message):
-    user_id = await extract_user(message)
-    if not user_id:
-        return await message.reply_text("I can't find that user.")
-    user = await app.get_users(user_id)
-
-    is_fmuted = await is_fmuted_user(user.id)
-    if not is_fmuted:
-        await message.reply_text("I don't remember Fmuting him.")
-    else:
-        await remove_fmute_user(user.id)
-        await message.chat.unban_member(user_id)
-        await message.reply_text(f"{user.mention}'s unmuted .'")
 
 
 # Broadcast
