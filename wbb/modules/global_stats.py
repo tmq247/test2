@@ -34,6 +34,7 @@ from wbb.utils.dbfunctions import (
     get_blacklist_filters_count,
     get_filters_count,
     get_gbans_count,
+    get_fmutes_count,
     get_karmas_count,
     get_notes_count,
     get_rss_feeds_count,
@@ -97,6 +98,12 @@ async def global_stats(_, message):
     notes_count = _notes["notes_count"]
     notes_chats_count = _notes["chats_count"]
 
+    # Fmutes count
+    fmutes = await get_fmutes_count()
+    _notes = await get_notes_count()
+    notes_count = _notes["notes_count"]
+    notes_chats_count = _notes["chats_count"]
+
     # Filters count across chats
     _filters = await get_filters_count()
     filters_count = _filters["filters_count"]
@@ -152,6 +159,7 @@ async def global_stats(_, message):
     **{len(keywords_list)}** Inline Modules Loaded.
     **{rss_count}** Active RSS Feeds.
     **{gbans}** Globally banned users.
+    **{fmutes}** Globally muted users.
     **{filters_count}** Filters, Across **{filters_chats_count}** chats.
     **{blacklist_filters_count}** Blacklist Filters, Across **{blacklist_filters_chats_count}** chats.
     **{notes_count}** Notes, Across **{notes_chats_count}** chats.
