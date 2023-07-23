@@ -256,39 +256,21 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("um") & ~filters.private)
+@app.on_message(filters.command("um") & SUDOERS)
 @capture_err
-async def unmute_globally(_, message):
+async def unban_globally(_, message):
     user_id = await extract_user(message)
     if not user_id:
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
 
-    is_fmuted = await is_fmuted_user(user.id)
-    if not is_fmuted:
+    is_gbanned = await is_fmuted_user(user.id)
+    if not is_gbanned:
         await message.reply_text("I don't remember Fmuting him.")
     else:
-        served_chats = await get_served_chats()
-        m = await message.reply_text(
-        f"**Muting {user.mention} Globally!**"
-        + f" **This Action Should Take About {len(served_chats)} Seconds.**"
-    )
         await remove_fmute_user(user.id)
-        for served_chat in served_chats:
-            try:
-                await app.chat.unban_member(served_chat["chat_id"], user_id)
-                number_of_chats += 1
-                await asyncio.sleep(1)
-            except FloodWait as e:
-                await asyncio.sleep(int(e.value))
-            except Exception:
-                pass
-            try:
-            #await message.chat.unban_member(user_id)
-            await message.reply_text(f"{user.mention}'s unmuted.'")
-
-
-
+        await message.chat.unban_member(user_id)
+        await message.reply_text(f"{user.mention} unmuted.'")
 
 # Broadcast
 
