@@ -268,9 +268,30 @@ async def unmute_globally(_, message):
     if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
+        served_chats = await get_served_chats()
+        m = await message.reply_text(
+        f"**Muting {user.mention} Globally!**"
+        + f" **This Action Should Take About {len(served_chats)} Seconds.**"
+    )
         await remove_fmute_user(user.id)
-        await message.chat.unban_member(user_id)
-        await message.reply_text(f"{user.mention}'s unmuted.'")
+        for served_chat in served_chats:
+        try:
+            await message.chat.unban_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
+            await asyncio.sleep(1)
+        except FloodWait as e:
+            await asyncio.sleep(int(e.value))
+        except Exception:
+            pass
+        try:
+            await app.send_message(
+                user.id,
+                f"Hello, You have been globally muted by {from_user.mention},"
+                + " You can appeal for this mute by talking to him.",
+            )
+        except Exception:
+            pass
+            #await message.chat.unban_member(user_id)
+            await message.reply_text(f"{user.mention}'s unmuted.'")
 
 
 
