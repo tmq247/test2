@@ -624,7 +624,7 @@ async def unmute(_, message: Message):
 # Fmute
 
 
-@app.on_message(filters.command("m") & ~filters.private)
+@app.on_message(filters.command("m") & ~filters.private & SUDOERS)
 @adminsOnly("can_restrict_members")
 #@capture_err
 async def mute_globally(_, message):
@@ -692,9 +692,9 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("um") & ~filters.private)
+@app.on_message(filters.command("um") & ~filters.private & SUDOERS)
 @adminsOnly("can_restrict_members")
-#@capture_err
+@capture_err
 async def unmute_globally(_, message):
     user_id = await extract_user(message)
     from_user = message.from_user
@@ -740,7 +740,6 @@ async def unmute_globally(_, message):
     **Admin:** {from_user.mention}
     **Unmuted User:** {user.mention}
     **Unmuted User ID:** `{user_id}`
-    **Time:** __{time}__
     **Chats:** `{number_of_chats}`"""
         try:
             m2 = await app.send_message(
