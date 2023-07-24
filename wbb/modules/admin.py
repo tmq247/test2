@@ -634,8 +634,9 @@ async def mute_globally(_, message):
 
     if not user_id:
         return await message.reply_text("I can't find that user.")
-    if not reason:
-        return await message.reply("No reason provided.")
+        
+    #if not reason:
+        #return await message.reply("No reason provided.")
 
     if user_id in [from_user.id, BOT_ID] or user_id in SUDOERS:
         return await message.reply_text("I can't mute that user.")
