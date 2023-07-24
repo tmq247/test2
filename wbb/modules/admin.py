@@ -671,7 +671,7 @@ async def mute_globally(_, message):
     await m.edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
     mute_text = f"""
 __**Người dùng bị cấm chat toàn hệ thống**__
-**Tại nhóm có ID:** {message.chat.title} [`{message.chat.id}`]
+**Tại nhóm :** {message.chat.title} [`{message.chat.id}`]
 **Quản trị viên:** {from_user.mention}
 **Người dùng bị cấm chat:** {user.mention}
 **ID người dùng bị cấm chat:** `{user_id}`
@@ -739,12 +739,12 @@ async def unmute_globally(_, message):
             pass
         await m.edit(f"Đã xác nhận {user.mention} trên toàn hệ thống!")
         mute_text = f"""
-    __**Người dùng được xác nhận**__
-    **Nguồn gốc:** {message.chat.title} [`{message.chat.id}`]
-    **Quản trị viên:** {from_user.mention}
-    **Mở chat người dùng:** {user.mention}
-    **ID người dùng đã mở chat:** `{user_id}`
-    **Số nhóm:** `{number_of_chats}`"""
+__**Người dùng được xác nhận**__
+**Tại nhóm :** {message.chat.title} [`{message.chat.id}`]
+**Quản trị viên:** {from_user.mention}
+**Mở chat người dùng:** {user.mention}
+**ID người dùng đã mở chat:** `{user_id}`
+**Số nhóm:** `{number_of_chats}`"""
         try:
             m2 = await app.send_message(
                 FMUTE_LOG_GROUP_ID,
