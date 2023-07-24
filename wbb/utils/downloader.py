@@ -37,13 +37,13 @@ async def download(
     task_id: int = int(time()),
 ):
     """
-    :url: url where the file is located
+    :url: url nơi tập tin được đặt
     :file_path: path/to/file
-    :chunk_size: size of a single chunk
+    :chunk_size: kích thước của một khối duy nhất
 
     Returns:
-            (asyncio.Task, task_id), With which you can await
-            the task, track task progress or cancel it.
+            (asyncio.Task, task_id),Mà bạn có thể chờ đợi
+            nhiệm vụ, theo dõi tiến độ nhiệm vụ hoặc hủy bỏ nó.
     """
     # Create a task and add it to main tasks dict
     # So we can cancel it using .cancelTask
