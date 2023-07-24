@@ -17,17 +17,17 @@ class Feed:
 
     def parsed(self):
         text = (
-            f"**Title:** [{self.title.strip()}]({self.link or 'https://google.com'})\n"
+            f"**Tiêu đề:** [{self.title.strip()}]({self.link or 'https://google.com'})\n"
         )
         if self.author:
-            text += f"**Author:** {self.author}\n"
+            text += f"**Tác giả:** {self.author}\n"
         if self.published:
-            text += f"**Published:** `{self.published}`\n"
+            text += f"**Được phát hành:** `{self.published}`\n"
         if self.updated:
-            text += f"**Last Updated:** `{self.updated}`\n"
+            text += f"**Cập nhật mới nhất:** `{self.updated}`\n"
 
         if self.summary and "<div" not in self.summary:
-            text += f"**Summary:** {self.summary.strip()}\n"
+            text += f"**Bản tóm tắt:** {self.summary.strip()}\n"
 
         if text:
             return "\n".join([i.strip() for i in text.splitlines()])
