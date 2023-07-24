@@ -268,10 +268,8 @@ async def unmute_globally(_, message):
     if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
-        served_chats = await get_served_chats()
-        chats = [int(chat["chat_id"]) for chat in served_chats]
         await remove_fmute_user(user.id)
-        await app.ban_chat_member(int(chats["chat_id"]), int(user.id)) 
+        await app.ban_chat_member(user.id) 
         await message.reply_text(f"{user.mention} unmuted.'")
 
 # Broadcast
