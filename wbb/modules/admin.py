@@ -684,7 +684,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
             disable_web_page_preview=True,
         )
         await m.edit(
-            f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n IB cho {reason or from_user.mention} để mở chat**""",
+            f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n Gửi voice cho {reason or from_user.mention} để được mỡ chat  💬💬💬**""",
             disable_web_page_preview=True,
         )
     except Exception:
