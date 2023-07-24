@@ -624,8 +624,9 @@ async def unmute(_, message: Message):
 # Fmute
 
 
-@app.on_message(filters.command("m") & SUDOERS)
-@capture_err
+@app.on_message(filters.command("m") & ~filters.private)
+@adminsOnly("can_restrict_members")
+#@capture_err
 async def mute_globally(_, message):
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
@@ -691,8 +692,9 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("xacnhan") & SUDOERS)
-@capture_err
+@app.on_message(filters.command("xacnhan") & ~filters.private)
+@adminsOnly("can_restrict_members")
+#@capture_err
 async def unmute_globally(_, message):
     user_id = await extract_user(message)
     from_user = message.from_user
