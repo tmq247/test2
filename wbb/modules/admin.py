@@ -744,6 +744,7 @@ __**Người dùng được xác nhận**__
 **Quản trị viên:** {from_user.mention}
 **Mở chat người dùng:** {user.mention}
 **ID người dùng đã mở chat:** `{user_id}`
+**Lúc:** __{reason}__
 **Số nhóm:** `{number_of_chats}`"""
         try:
             m2 = await app.send_message(
