@@ -431,7 +431,7 @@ async def list_unban_(c, message: Message):
 **List-Unbanned User:** {mention}
 **Unbanned User ID:** `{userid}`
 **Quản trị viên:** {message.from_user.mention}
-**Cuộc trò chuyện bị ảnh hưởng:** `{count}`
+**Số nhóm:** `{count}`
 """
     await m.edit_text(msg)
 
@@ -675,7 +675,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
 **Quản trị viên:** {from_user.mention}
 **Người dùng bị cấm chat:** {user.mention}
 **ID người dùng bị cấm chat:** `{user_id}`
-**Lý do:** __{reason}__
+**Lý do (admin) :** __{reason}__
 **Số nhóm:** `{number_of_chats}`"""
     try:
         m2 = await app.send_message(
