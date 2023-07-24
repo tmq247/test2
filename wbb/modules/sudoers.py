@@ -189,7 +189,7 @@ async def unban_globally(_, message):
 # Fmute
 
 
-@app.on_message(filters.command("m") & ~filters.private)
+@app.on_message(filters.command("m") & SUDOERS)
 @capture_err
 async def mute_globally(_, message):
     permissions = "can_restrict_members"
@@ -257,7 +257,7 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("um") & ~filters.private)
+@app.on_message(filters.command("um") & SUDOERS)
 @capture_err
 async def unmute_globally(_, message):
     permissions = "can_restrict_members"
