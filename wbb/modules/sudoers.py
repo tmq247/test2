@@ -267,7 +267,7 @@ async def unmute_globally(_, message):
     #permissions = "can_restrict_members"
     user_id = await extract_user(message)
     from_user = message.from_user
-    time = int(time.time()
+    time = int(time.time())
     if not user_id:
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
