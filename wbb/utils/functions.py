@@ -166,7 +166,7 @@ async def time_converter(message: Message, time_value: str) -> datetime:
     currunt_time = datetime.now()
     time_digit = time_value[:-1]
     if not time_digit.isdigit():
-        return await message.reply_text("Incorrect time specified")
+        return await message.reply_text("Thời gian không chính xác được chỉ định")
     if check_unit == "m":
         temp_time = currunt_time + timedelta(minutes=int(time_digit))
     elif check_unit == "h":
@@ -180,7 +180,7 @@ async def time_converter(message: Message, time_value: str) -> datetime:
 
 async def extract_userid(message, text: str):
     """
-    NOT TO BE USED OUTSIDE THIS FILE
+    KHÔNG ĐƯỢC SỬ DỤNG BÊN NGOÀI TẬP TIN NÀY
     """
 
     def is_int(text: str):
