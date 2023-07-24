@@ -283,7 +283,7 @@ async def unmute_globally(_, message):
         number_of_chats = 0
         for served_chat in served_chats:
             try:
-                await app.chat.unban_member(served_chat["chat_id"], user.id)
+                await app.unban_chat_member(served_chat["chat_id"], user.id)
                 number_of_chats += 1
                 await asyncio.sleep(1)
             except FloodWait as e:
