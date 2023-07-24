@@ -626,7 +626,7 @@ async def unmute(_, message: Message):
 
 @app.on_message(filters.command("m") & ~filters.private & SUDOERS)
 @adminsOnly("can_restrict_members")
-#@capture_err
+@capture_err
 async def mute_globally(_, message):
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
