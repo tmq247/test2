@@ -7,26 +7,25 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from wbb import BOT_USERNAME, app
 
 MARKDOWN = """
-Read the below text carefully to find out how formatting works!
+Đọc kỹ văn bản dưới đây để tìm hiểu cách thức hoạt động của định dạng!
 
 <u>Supported Fillings:</u>
 
-<code>{name}</code> - This will mention the user with their name.
-<code>{chat}</code> - This will fill with the current chat name.
+<code>{name}</code> - Điều này sẽ đề cập đến người dùng với tên của họ.
+<code>{chat}</code> - Điều này sẽ điền vào tên trò chuyện hiện tại.
 
-NOTE: Fillings only works in greetings module.
-
+LƯU Ý: Điền chỉ hoạt động trong mô-đun lời chào.
 
 <u>Supported formatting:</u>
 
-<code>**Bold**</code> : This will show as <b>bold</b> text.
-<code>~~strike~~</code>: This will show as <strike>strike</strike> text.
-<code>__italic__</code>: This will show as <i>italic</i> text.
-<code>--underline--</code>: This will show as <u>underline</u> text.
-<code>`code words`</code>: This will show as <code>code</code> text.
-<code>||spoiler||</code>: This will show as <spoiler>Spoiler</spoiler> text.
-<code>[hyperlink](google.com)</code>: This will create a <a href='https://www.google.com'>hyperlink</a> text.
-<b>Note:</b> You can use both markdown & html tags.
+<code>**Bold**</code> : Điều này sẽ hiển thị dưới dạng văn bản <b>đậm</b>.
+<code>~~strike~~</code>: Điều này sẽ hiển thị dưới dạng văn bản <strike>strike</strike>.
+<code>__italic__</code>: Điều này sẽ hiển thị dưới dạng văn bản <i>in nghiêng</i>.
+<code>--underline--</code>: Điều này sẽ hiển thị dưới dạng văn bản <u>gạch chân</u>.
+<code>`code words`</code>: Điều này sẽ hiển thị dưới dạng văn bản <code>code</code>.
+<code>||spoiler||</code>: Điều này sẽ hiển thị dưới dạng văn bản <spoiler>Spoiler</spoiler>.
+<code>[hyperlink](google.com)</code>: Thao tác này sẽ tạo một văn bản <a href='https://www.google.com'>siêu liên kết</a>.
+<b>Note:</b> Bạn có thể sử dụng cả thẻ markdown & html.
 
 
 <u>Button formatting:</u>
@@ -54,7 +53,7 @@ async def mkdwnhelp(_, m: Message):
     )
     if m.chat.type != ChatType.PRIVATE:
         await m.reply(
-            "Click on the below button to get markdown usage syntax in pm!",
+            "Nhấp vào nút bên dưới để nhận cú pháp sử dụng markdown trong pm!",
             reply_markup=keyb,
         )
     else:
