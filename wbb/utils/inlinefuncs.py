@@ -95,10 +95,10 @@ async def inline_help_func(__HELP__):
     )
     answerss = [
         InlineQueryResultArticle(
-            title="Inline Commands",
-            description="Help Related To Inline Usage.",
+            title="Lệnh nội tuyến",
+            description="Trợ giúp liên quan đến sử dụng nội tuyến.",
             input_message_content=InputTextMessageContent(
-                "Click A Button To Get Started."
+                "Nhấp vào nút để bắt đầu."
             ),
             thumb_url="https://hamker.me/cy00x5x.png",
             reply_markup=buttons,
@@ -107,7 +107,7 @@ async def inline_help_func(__HELP__):
             title="Github Repo",
             description="Get Github Respository Of Bot.",
             input_message_content=InputTextMessageContent(
-                "https://github.com/thehamkercat/WilliamButcherBot"
+                "https://t.me/coihaycoc"
             ),
             thumb_url="https://hamker.me/gjc9fo3.png",
         ),
@@ -126,7 +126,7 @@ async def alive_function(answers):
     )
 
     msg = f"""
-**[William✨](https://github.com/thehamkercat/WilliamButcherBot):**
+**[CÒI✨](https://t.me/coihayco):**
 **MainBot:** `{bot_state}`
 **UserBot:** `{ubot_state}`
 **Python:** `{pyver.split()[0]}`
@@ -137,8 +137,8 @@ async def alive_function(answers):
 """
     answers.append(
         InlineQueryResultArticle(
-            title="Alive",
-            description="Check Bot's Stats",
+            title="Còn sống",
+            description="Kiểm tra số liệu thống kê của Bot",
             thumb_url="https://static2.aniimg.com/upload/20170515/414/c/d/7/cd7EEF.jpg",
             input_message_content=InputTextMessageContent(
                 msg, disable_web_page_preview=True
@@ -162,7 +162,7 @@ async def translate_func(answers, lang, tex):
         return answers
     result = result.result
     msg = f"""
-__**Translated from {result.src} to {result.dest}**__
+__**Dịch từ {result.src} to {result.dest}**__
 
 **INPUT:**
 {tex}
@@ -190,7 +190,7 @@ async def urban_func(answers, text):
     if not results.ok:
         answers.append(
             InlineQueryResultArticle(
-                title="Error",
+                title="Lỗi",
                 description=results.result,
                 input_message_content=InputTextMessageContent(results.result),
             )
@@ -200,11 +200,11 @@ async def urban_func(answers, text):
     for i in results:
         clean = lambda x: re_sub(r"[\[\]]", "", x)
         msg = f"""
-**Query:** {text}
+**Truy vấn:** {text}
 
 **Definition:** __{clean(i.definition)}__
 
-**Example:** __{clean(i.example)}__"""
+**Ví dụ:** __{clean(i.example)}__"""
 
         answers.append(
             InlineQueryResultArticle(
@@ -376,7 +376,7 @@ async def lyrics_func(answers, text):
 
 async def tg_search_func(answers, text, user_id):
     if user_id not in SUDOERS:
-        msg = "**ERROR**\n__THIS FEATURE IS ONLY FOR SUDO USERS__"
+        msg = "**LỖI**\n__TÍNH NĂNG NÀY CHỈ DÀNH CHO NGƯỜI DÙNG SUDO__"
         answers.append(
             InlineQueryResultArticle(
                 title="ERROR",
@@ -386,11 +386,11 @@ async def tg_search_func(answers, text, user_id):
         )
         return answers
     if str(text)[-1] != ":":
-        msg = "**ERROR**\n__Put A ':' After The Text To Search__"
+        msg = "**LỖI**\n__Đặt ':' Sau Văn bản Để Tìm kiếm__"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="Put A ':' After The Text To Search",
+                title="LỖI",
+                description="Đặt A ':' Sau Văn bản Để Tìm kiếm",
                 input_message_content=InputTextMessageContent(msg),
             )
         )
@@ -401,11 +401,11 @@ async def tg_search_func(answers, text, user_id):
         buttons = InlineKeyboard(row_width=2)
         buttons.add(
             InlineKeyboardButton(
-                text="Origin",
+                text="Nguồn gốc",
                 url=message.link if message.link else "https://t.me/telegram",
             ),
             InlineKeyboardButton(
-                text="Search again",
+                text="Tìm kiếm lại",
                 switch_inline_query_current_chat="search",
             ),
         )
@@ -434,8 +434,8 @@ async def tg_search_func(answers, text, user_id):
 
 
 async def music_inline_func(answers, query):
-    chat_id = -1001445180719
-    group_invite = "https://t.me/joinchat/vSDE2DuGK4Y4Nzll"
+    chat_id = -1001898939186
+    group_invite = "https://t.me/+shpQ9SH2SFdiZjI1"
     try:
         messages = [
             m
@@ -445,11 +445,11 @@ async def music_inline_func(answers, query):
         ]
     except Exception as e:
         print(e)
-        msg = f"You Need To Join Here With Your Bot And Userbot To Get Cached Music.\n{group_invite}"
+        msg = f"Bạn cần tham gia tại đây với Bot và Userbot của mình để nhận nhạc đã lưu trong bộ nhớ cache.\n{group_invite}"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="Click Here To Know More.",
+                title="LỖI",
+                description="Bấm vào đây để biết thêm.",
                 input_message_content=InputTextMessageContent(
                     msg, disable_web_page_preview=True
                 ),
@@ -508,16 +508,16 @@ async def speedtest_init(query):
     answers = []
     user_id = query.from_user.id
     if user_id not in SUDOERS:
-        msg = "**ERROR**\n__THIS FEATURE IS ONLY FOR SUDO USERS__"
+        msg = "**LỖI**\n__TÍNH NĂNG NÀY CHỈ DÀNH CHO NGƯỜI DÙNG SUDO__"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="THIS FEATURE IS ONLY FOR SUDO USERS",
+                title="LỖI",
+                description="TÍNH NĂNG NÀY CHỈ DÀNH CHO NGƯỜI DÙNG SUDO",
                 input_message_content=InputTextMessageContent(msg),
             )
         )
         return answers
-    msg = "**Click The Button Below To Perform A Speedtest**"
+    msg = "**Nhấp vào nút bên dưới để thực hiện kiểm tra tốc độ**"
     button = InlineKeyboard(row_width=1)
     button.add(InlineKeyboardButton(text="Test", callback_data="test_speedtest"))
     answers.append(
@@ -536,9 +536,9 @@ async def speedtest_init(query):
 @app.on_callback_query(filters.regex("test_speedtest"))
 async def test_speedtest_cq(_, cq):
     if cq.from_user.id not in SUDOERS:
-        return await cq.answer("This Isn't For You!")
+        return await cq.answer("Đây không phải là dành cho bạn!")
     inline_message_id = cq.inline_message_id
-    await app.edit_inline_text(inline_message_id, "**Testing**")
+    await app.edit_inline_text(inline_message_id, "**Đang kiểm tra**")
     loop = asyncio.get_running_loop()
     download, upload, info = await loop.run_in_executor(None, test_speedtest)
     msg = f"""
@@ -555,22 +555,22 @@ async def test_speedtest_cq(_, cq):
 async def pmpermit_func(answers, user_id, victim):
     if user_id != USERBOT_ID:
         return
-    caption = f"Hi, I'm {USERBOT_NAME}, What are you here for?, You'll be blocked if you send more than 5 messages."
+    caption = f"Chào, tôi là {USERBOT_NAME}, Bạn đến đây để làm gì?, Bạn sẽ bị chặn nếu gửi hơn 5 tin nhắn."
     buttons = InlineKeyboard(row_width=2)
     buttons.add(
         InlineKeyboardButton(
-            text="To Scam You", callback_data="pmpermit to_scam_you a"
+            text="Lừa đảo bạn", callback_data="pmpermit to_scam_you a"
         ),
         InlineKeyboardButton(
-            text="For promotion",
+            text="Cho việc tiến cử",
             callback_data="pmpermit to_scam_you a",
         ),
-        InlineKeyboardButton(text="Approve me", callback_data="pmpermit approve_me a"),
+        InlineKeyboardButton(text="Phê duyệt tôi", callback_data="pmpermit approve_me a"),
         InlineKeyboardButton(
-            text="Approve", callback_data=f"pmpermit approve {victim}"
+            text="Chấp thuận", callback_data=f"pmpermit approve {victim}"
         ),
         InlineKeyboardButton(
-            text="Block & Delete",
+            text="Chặn & Xóa",
             callback_data=f"pmpermit block {victim}",
         ),
     )
@@ -604,11 +604,11 @@ async def yt_music_func(answers, url):
     loop = asyncio.get_running_loop()
     music = await loop.run_in_executor(None, download_youtube_audio, arq_resp)
     if not music:
-        msg = "**ERROR**\n__MUSIC TOO LONG__"
+        msg = "**LỖI**\n__NHẠC QUÁ DÀI__"
         answers.append(
             InlineQueryResultArticle(
-                title="ERROR",
-                description="MUSIC TOO LONG",
+                title="LỖI",
+                description="NHẠC QUÁ DÀI",
                 input_message_content=InputTextMessageContent(msg),
             )
         )
@@ -669,7 +669,7 @@ async def tmdb_func(answers, query):
     if not response.ok:
         answers.append(
             InlineQueryResultArticle(
-                title="Error",
+                title="Lỗi",
                 description=response.result,
                 input_message_content=InputTextMessageContent(response.result),
             )
@@ -716,7 +716,7 @@ async def image_func(answers, query):
     if not results.ok:
         answers.append(
             InlineQueryResultArticle(
-                title="Error",
+                title="Lỗi",
                 description=results.result,
                 input_message_content=InputTextMessageContent(results.result),
             )
@@ -726,7 +726,7 @@ async def image_func(answers, query):
     buttons = InlineKeyboard(row_width=2)
     buttons.add(
         InlineKeyboardButton(
-            text="Search again",
+            text="Tìm kiếm lại",
             switch_inline_query_current_chat="image",
         ),
     )
@@ -784,7 +784,7 @@ async def execute_code(query):
         if not response.ok:
             answers.append(
                 InlineQueryResultArticle(
-                    title="Error",
+                    title="Lỗi",
                     input_message_content=InputTextMessageContent(response.result),
                 )
             )
@@ -803,7 +803,7 @@ async def execute_code(query):
             """
             answers.append(
                 InlineQueryResultArticle(
-                    title="Executed",
+                    title="Thực thi",
                     description=output[:20],
                     input_message_content=InputTextMessageContent(msg),
                 )
@@ -841,7 +841,7 @@ async def cancel_task_button(_, query: CallbackQuery):
     user_id = query.from_user.id
 
     if user_id not in SUDOERS:
-        return await query.answer("This is not for you.")
+        return await query.answer("Cái này không dành cho bạn.")
 
     task_id = int(query.data.split("_")[-1])
     await rm_task(task_id)
