@@ -624,7 +624,7 @@ async def unmute(_, message: Message):
 # Fmute
 
 
-@app.on_message(filters.command("m") & ~filters.private)
+@app.on_message(filters.command("m") & ~filters.list_admins)
 @adminsOnly("can_restrict_members")
 @capture_err
 async def mute_globally(_, message):
@@ -693,7 +693,7 @@ __**New Global Mute**__
 # Unfmute
 
 
-@app.on_message(filters.command("um") & ~filters.private)
+@app.on_message(filters.command("um") & ~filters.list_admins)
 @adminsOnly("can_restrict_members")
 @capture_err
 async def unmute_globally(_, message):
