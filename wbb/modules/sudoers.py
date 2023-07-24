@@ -56,29 +56,29 @@ from wbb.utils.functions import extract_user, extract_user_and_reason, restart
 
 __MODULE__ = "Sudoers"
 __HELP__ = """
-/stats - To Check System Status.
+/stats - Để kiểm tra trạng thái hệ thống.
 
-/gstats - To Check Bot's Global Stats.
+/gstats - Để kiểm tra số liệu thống kê toàn cầu của Bot.
 
-/gban - To Ban A User Globally.
+/gban - Để cấm người dùng trên toàn cầu.
 
-/ungban - To unban A User Globally.
+/ungban - Bỏ cấm người dùng trên toàn cầu.
 
-/m - To Mute A User Globally.
+/m - Tắt tiếng người dùng trên toàn cầu.
 
-/um - To Unmute A User Globally.
+/um - Để bật tiếng người dùng trên toàn cầu.
 
-/clean_db - Clean database.
+/clean_db - Làm sạch cơ sở dữ liệu.
 
-/broadcast - To Broadcast A Message To All Groups.
+/broadcast - Để phát tin nhắn cho tất cả các nhóm.
 
-/ubroadcast - To Broadcast A Message To All Users.
+/ubroadcast - Để phát một tin nhắn tới tất cả người dùng.
 
-/update - To Update And Restart The Bot
+/update - Để cập nhật và khởi động lại bot
 
-/eval - Execute Python Code
+/eval - Thực thi mã Python
 
-/sh - Execute Shell Code
+/sh - Thực thi mã Shell
 """
 
 
@@ -267,6 +267,7 @@ async def unmute_globally(_, message):
     #permissions = "can_restrict_members"
     user_id = await extract_user(message)
     from_user = message.from_user
+    time = int(time.time()
     if not user_id:
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
@@ -309,6 +310,7 @@ async def unmute_globally(_, message):
     **Admin:** {from_user.mention}
     **Unmuted User:** {user.mention}
     **Unmuted User ID:** `{user_id}`
+    **Time:** __{time}__
     **Chats:** `{number_of_chats}`"""
         try:
             m2 = await app.send_message(
