@@ -76,55 +76,55 @@ async def start_bot():
     print("+===============+===============+===============+===============+")
     print(bot_modules)
     print("+===============+===============+===============+===============+")
-    log.info(f"BOT STARTED AS {BOT_NAME}!")
-    log.info(f"USERBOT STARTED AS {USERBOT_NAME}!")
+    log.info(f"BOT BẮT ĐẦU NHƯ {BOT_NAME}!")
+    log.info(f"USERBOT ĐÃ BẮT ĐẦU NHƯ {USERBOT_NAME}!")
 
     restart_data = await clean_restart_stage()
 
     try:
-        log.info("Sending online status")
+        log.info("Gửi trạng thái trực tuyến")
         if restart_data:
             await app.edit_message_text(
                 restart_data["chat_id"],
                 restart_data["message_id"],
-                "**Restarted Successfully**",
+                "**Khởi động lại thành công**",
             )
 
         else:
-            await app.send_message(LOG_GROUP_ID, "Bot started!")
+            await app.send_message(LOG_GROUP_ID, "Bot bắt đầu!")
     except Exception:
         pass
 
     await idle()
 
     await aiohttpsession.close()
-    log.info("Stopping clients")
+    log.info("Dừng máy khách")
     await app.stop()
-    log.info("Cancelling asyncio tasks")
+    log.info("Hủy tác vụ asyncio")
     for task in asyncio.all_tasks():
         task.cancel()
-    log.info("Dead!")
+    log.info("Ngắt!")
 
 
 home_keyboard_pm = InlineKeyboardMarkup(
     [
         [
-            InlineKeyboardButton(text="Commands ❓", callback_data="bot_commands"),
+            InlineKeyboardButton(text="Lệnh ❓", callback_data="bot_commands"),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/thehamkercat/WilliamButcherBot",
+                text="Chủ sở hữu 🛠",
+                url="https://t.me/coihaycoc",
             ),
         ],
         [
             InlineKeyboardButton(
-                text="System Stats 🖥",
+                text="Thống kê hệ thống 🖥",
                 callback_data="stats_callback",
             ),
-            InlineKeyboardButton(text="Support 👨", url="http://t.me/WBBSupport"),
+            InlineKeyboardButton(text="Ủng hộ 👨", url="http://t.me/coihaycoc"),
         ],
         [
             InlineKeyboardButton(
-                text="Add Me To Your Group 🎉",
+                text="Thêm tôi vào nhóm của bạn 🎉",
                 url=f"http://t.me/{BOT_USERNAME}?startgroup=new",
             )
         ],
@@ -132,29 +132,29 @@ home_keyboard_pm = InlineKeyboardMarkup(
 )
 
 home_text_pm = (
-    f"Hey there! My name is {BOT_NAME}. I can manage your "
-    + "group with lots of useful features, feel free to "
-    + "add me to your group."
+    f"Chào người ae! Tên tôi là {BOT_NAME}. Tôi có thể giúp bạn quản lý nhóm"
+    + "với nhiều tính năng hữu ích, thoải mái. "
+    + "Thêm tôi vào nhóm của bạn."
 )
 
 keyboard = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(
-                text="Help ❓",
+                text="Giúp đỡ ❓",
                 url=f"t.me/{BOT_USERNAME}?start=help",
             ),
             InlineKeyboardButton(
-                text="Repo 🛠",
-                url="https://github.com/thehamkercat/WilliamButcherBot",
+                text="Chủ sở hữu 🛠",
+                url="https://t.me/coihaycoc"",
             ),
         ],
         [
             InlineKeyboardButton(
-                text="System Stats 💻",
+                text="Thống kê hệ thống 💻",
                 callback_data="stats_callback",
             ),
-            InlineKeyboardButton(text="Support 👨", url="t.me/WBBSupport"),
+            InlineKeyboardButton(text="Ủng hộ 👨", url="t.me/coihaycoc"),
         ],
     ]
 )
@@ -163,7 +163,7 @@ keyboard = InlineKeyboardMarkup(
 @app.on_message(filters.command("start"))
 async def start(_, message):
     if message.chat.type != ChatType.PRIVATE:
-        return await message.reply("Pm Me For More Details.", reply_markup=keyboard)
+        return await message.reply("IB Mình Để Biết Thêm Chi Tiết.", reply_markup=keyboard)
     if len(message.text.split()) > 1:
         name = (message.text.split(None, 1)[1]).lower()
         if name == "mkdwn_help":
@@ -201,26 +201,26 @@ async def help_command(_, message):
                     [
                         [
                             InlineKeyboardButton(
-                                text="Click here",
+                                text="Bấm vào đây",
                                 url=f"t.me/{BOT_USERNAME}?start=help_{name}",
                             )
                         ],
                     ]
                 )
                 await message.reply(
-                    f"Click on the below button to get help about {name}",
+                    f"Nhấp vào nút bên dưới để được trợ giúp về {name}",
                     reply_markup=key,
                 )
             else:
-                await message.reply("PM Me For More Details.", reply_markup=keyboard)
+                await message.reply("IB cho tôi để biết thêm chi tiết.", reply_markup=keyboard)
         else:
-            await message.reply("Pm Me For More Details.", reply_markup=keyboard)
+            await message.reply("IB Mình Để Biết Thêm Chi Tiết.", reply_markup=keyboard)
     else:
         if len(message.command) >= 2:
             name = (message.text.split(None, 1)[1]).replace(" ", "_").lower()
             if str(name) in HELPABLE:
                 text = (
-                    f"Here is the help for **{HELPABLE[name].__MODULE__}**:\n"
+                    f"Đây là sự giúp đỡ cho **{HELPABLE[name].__MODULE__}**:\n"
                     + HELPABLE[name].__HELP__
                 )
                 await message.reply(text, disable_web_page_preview=True)
@@ -243,10 +243,10 @@ async def help_parser(name, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
-        """Hello {first_name}, My name is {bot_name}.
-I'm a group management bot with some useful features.
-You can choose an option below, by clicking a button.
-Also you can ask anything in Support Group.
+        """Xin chào {first_name}, tên tôi là {bot_name}.
+Tôi là bot quản lý nhóm với một số tính năng hữu ích.
+Bạn có thể chọn một tùy chọn bên dưới, bằng cách nhấp vào một nút.
+Ngoài ra, bạn có thể hỏi bất cứ điều gì trong Nhóm hỗ trợ.
 """.format(
             first_name=name,
             bot_name=BOT_NAME,
@@ -282,19 +282,19 @@ async def help_button(client, query):
     back_match = re.match(r"help_back", query.data)
     create_match = re.match(r"help_create", query.data)
     top_text = f"""
-Hello {query.from_user.first_name}, My name is {BOT_NAME}.
-I'm a group management bot with some useful features.
-You can choose an option below, by clicking a button.
-Also you can ask anything in Support Group.
+Xin chào {query.from_user.first_name}, Tên tôi là {BOT_NAME}.
+Tôi là bot quản lý nhóm với một số tính năng hữu ích.
+Bạn có thể chọn một tùy chọn bên dưới, bằng cách nhấp vào một nút.
+Ngoài ra, bạn có thể hỏi bất cứ điều gì trong Nhóm hỗ trợ.
 
-General command are:
- - /start: Start the bot
- - /help: Give this message
+Lệnh chung là:
+ - /start: Bắt đầu bot
+ - /help: Trợ giúp
  """
     if mod_match:
         module = (mod_match.group(1)).replace(" ", "_")
         text = (
-            "{} **{}**:\n".format("Here is the help for", HELPABLE[module].__MODULE__)
+            "{} **{}**:\n".format("Đây là sự giúp đỡ cho", HELPABLE[module].__MODULE__)
             + HELPABLE[module].__HELP__
         )
 
