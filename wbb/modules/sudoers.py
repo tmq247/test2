@@ -303,7 +303,6 @@ async def unmute_globally(_, message):
     **Admin:** {from_user.mention}
     **Unmuted User:** {user.mention}
     **Unmuted User ID:** `{user_id}`
-    **Reason:** __{reason}__
     **Chats:** `{number_of_chats}`"""
         try:
             m2 = await app.send_message(
