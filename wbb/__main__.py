@@ -146,7 +146,7 @@ keyboard = InlineKeyboardMarkup(
             ),
             InlineKeyboardButton(
                 text="Chủ sở hữu 🛠",
-                url="https://t.me/coihaycoc"",
+                url="https://t.me/coihaycoc",
             ),
         ],
         [
