@@ -582,7 +582,7 @@ async def mute(_, message: Message):
         f"**Người dùng bị cấm chat:** {mention}\n"
         f"**Bị cấm chat bởi:** {message.from_user.mention if message.from_user else 'Anon'}\n"
     )
-     if message.command[0][0] == "d":
+    if message.command[0][0] == "d":
         await message.reply_to_message.delete()
     if message.command[0] == "tmut":
         split = reason.split(None, 1)
