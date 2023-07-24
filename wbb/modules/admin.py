@@ -617,7 +617,7 @@ async def mute(_, message: Message):
 @app.on_message(filters.command("unmut") & ~filters.private)
 @adminsOnly("can_restrict_members")
 async def unmute(_, message: Message):
-    user_id, reason = await extract_user_and_reason(message)
+    user_id, reason = await extract_user(message)
     if not user_id:
         return await message.reply_text("Tôi không thể tìm thấy người dùng đó.")
     await message.chat.unban_member(user_id)
@@ -700,7 +700,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
 @adminsOnly("can_restrict_members")
 #@capture_err
 async def unmute_globally(_, message):
-    user_id = await extract_user(message)
+    user_id, reason = await extract_user_and_reason(message)
     from_user = message.from_user
     if not user_id:
         return await message.reply_text("Tôi không thể tìm thấy người dùng đó.")
