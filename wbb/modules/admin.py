@@ -664,7 +664,7 @@ async def mute_globally(_, message):
         await app.send_message(
             user.id,
             f"Xin chào, Bạn đã bị cấm chat toàn hệ thống bởi {from_user.mention},"
-            + " Bạn hãy nhắn tin cho admin {reason or '@nguhanh69'} để mở chat.",
+            f" Bạn hãy nhắn tin cho admin {reason or '@nguhanh69'} để mở chat.",
         )
     except Exception:
         pass
