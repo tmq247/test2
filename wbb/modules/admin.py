@@ -61,7 +61,7 @@ from wbb.utils.dbfunctions import (
 )
 
 __MODULE__ = "Admin"
-__HELP__ = """/b - cấm người dùng
+__HELP__ = """/ban - cấm người dùng
 /db - Xóa tin nhắn đã trả lời cấm người gửi
 /tb - Cấm người dùng trong thời gian cụ thể
 /unb - Bỏ cấm người dùng
