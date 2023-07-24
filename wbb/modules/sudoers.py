@@ -268,9 +268,56 @@ async def unmute_globally(_, message):
     if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
+        #await remove_fmute_user(user.id)
+        #await message.chat.unban_member(user_id)
+        #await message.reply_text(f"{user.mention} unmuted.'")
+        served_chats = await get_served_chats()
+        m = await message.reply_text(
+            f"**Muting {user.mention} Globally!**"
+            + f" **This Action Should Take About {len(served_chats)} Seconds.**"
+        )
         await remove_fmute_user(user.id)
-        await message.chat.unban_member(user_id)
-        await message.reply_text(f"{user.mention} unmuted.'")
+        number_of_chats = 0
+        for served_chat in served_chats:
+            try:
+                await app.chat.unban_member(served_chat["chat_id"], user.id, permissions=ChatPermissions())
+                number_of_chats -= 1
+                await asyncio.sleep(1)
+            except FloodWait as e:
+                await asyncio.sleep(int(e.value))
+            except Exception:
+                pass
+        try:
+            await app.send_message(
+                user.id,
+                f"Hello, You have been globally unmuted by {from_user.mention},"
+                + " You can appeal for this unmute by talking to him.",
+            )
+        except Exception:
+            pass
+        await m.edit(f"Unmuted {user.mention} Globally!")
+        mute_text = f"""
+    __**New Global Unmute**__
+    **Origin:** {message.chat.title} [`{message.chat.id}`]
+    **Admin:** {from_user.mention}
+    **Unmuted User:** {user.mention}
+    **Unmuted User ID:** `{user_id}`
+    **Reason:** __{reason}__
+    **Chats:** `{number_of_chats}`"""
+        try:
+            m2 = await app.send_message(
+                FMUTE_LOG_GROUP_ID,
+                text=mute_text,
+                disable_web_page_preview=True,
+            )
+            await m.edit(
+                f"Unmted {user.mention} Globally!\nAction Log: {m2.link}",
+                disable_web_page_preview=True,
+            )
+        except Exception:
+            await message.reply_text(
+                "User Unmuted, But This unmute Action Wasn't Logged, Add Me In FMUTE_LOG_GROUP"
+            )
 
 # Broadcast
 
