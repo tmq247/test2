@@ -260,6 +260,7 @@ __**New Global Mute**__
 @capture_err
 async def unmute_globally(_, message):
     user_id = await extract_user(message)
+    from_user = message.from_user
     if not user_id:
         return await message.reply_text("I can't find that user.")
     user = await app.get_users(user_id)
