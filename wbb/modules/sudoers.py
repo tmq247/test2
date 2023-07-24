@@ -62,7 +62,11 @@ __HELP__ = """
 
 /gban - To Ban A User Globally.
 
-/m - To Ban A User Globally.
+/ungban - To unban A User Globally.
+
+/m - To Mute A User Globally.
+
+/um - To Unmute A User Globally.
 
 /clean_db - Clean database.
 
@@ -88,7 +92,7 @@ async def bot_sys_stats():
     disk = psutil.disk_usage("/").percent
     process = psutil.Process(os.getpid())
     stats = f"""
-{USERBOT_USERNAME}@William
+{USERBOT_USERNAME} @COIHAYCOC
 ------------------
 UPTIME: {formatter.get_readable_time(bot_uptime)}
 BOT: {round(process.memory_info()[0] / 1024 ** 2)} MB
@@ -245,7 +249,7 @@ __**New Global Mute**__
             disable_web_page_preview=True,
         )
         await m.edit(
-            f"Muted {user.mention} Globally!\nAction Log: {m2.link}",
+            f"Đã cấm chat {user.mention} trên toàn hệ thống!!! IB cho {from_user.mention} để mở chat",
             disable_web_page_preview=True,
         )
     except Exception:
@@ -313,7 +317,7 @@ async def unmute_globally(_, message):
                 disable_web_page_preview=True,
             )
             await m.edit(
-                f"Unmted {user.mention} Globally!\nAction Log: {m2.link}",
+                f"Unmted {user.mention} Globally!\nAction By: {from_user.mention}",
                 disable_web_page_preview=True,
             )
         except Exception:
