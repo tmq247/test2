@@ -270,9 +270,9 @@ async def unban_globally(_, message):
     else:
         schats = await get_served_chats()
         chats = [int(chat["chat_id"]) for chat in schats]
-        await remove_fmute_user(user.id)
-        await message.chat.unban_member(chat["chat_id"], user_id, permissions=ChatPermissions())
-        await message.reply_text(f"{user.mention} unmuted.'")
+    await remove_fmute_user(user.id)
+    await message.chat.unban_member(chat["chat_id"], user_id, permissions=ChatPermissions())
+    await message.reply_text(f"{user.mention} unmuted.'")
 
 # Broadcast
 
