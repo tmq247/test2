@@ -55,7 +55,7 @@ async def rm_task(task_id=None):
 async def _get_tasks_text():
     await rm_task()  # Clean completed tasks
     if not tasks:
-        return f"{arrow('')} No pending task"
+        return f"{arrow('')} Không có nhiệm vụ đang chờ xử lý"
 
     text = bold("Tasks") + "\n"
 
@@ -71,10 +71,10 @@ async def _get_tasks_text():
             f"{indent}Task {i}",
             body={
                 "Name": t.get_name(),
-                "Task ID": id,
-                "Status": info[0].capitalize(),
-                "Origin": info[2].split("/")[-1].replace(">", ""),
-                "Running since": f"{elapsed}s",
+                "ID nhiệm vụ": id,
+                "Trạng thái": info[0].capitalize(),
+                "Nguồn gốc": info[2].split("/")[-1].replace(">", ""),
+                "Chạy kể từ": f"{elapsed}s",
             },
             indent=8,
         )
