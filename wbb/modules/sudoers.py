@@ -192,6 +192,7 @@ async def unban_globally(_, message):
 @app.on_message(filters.command("m") & ~filters.private)
 @capture_err
 async def mute_globally(_, message):
+    permissions = "can_restrict_members"
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
     from_user = message.from_user
@@ -259,6 +260,7 @@ __**New Global Mute**__
 @app.on_message(filters.command("um") & ~filters.private)
 @capture_err
 async def unmute_globally(_, message):
+    permissions = "can_restrict_members"
     user_id = await extract_user(message)
     from_user = message.from_user
     if not user_id:
