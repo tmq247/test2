@@ -272,7 +272,7 @@ async def unmute_globally(_, message):
         chats = [int(chat["chat_id"]) for chat in served_chats]
     await remove_fmute_user(user.id)
     permissions=ChatPermissions()
-    await message.chat.unban_member(int(chats["chat_id"]), int(user_id), int(permissions)) 
+    await app.ban_chat_member(int(chats["chat_id"]), user.id) 
     await message.reply_text(f"{user.mention} unmuted.'")
 
 # Broadcast
