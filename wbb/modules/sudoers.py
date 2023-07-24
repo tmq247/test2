@@ -213,7 +213,7 @@ async def mute_globally(_, message):
     number_of_chats = 0
     for served_chat in served_chats:
         try:
-            await app.restrict_chat_member(served_chat["chat_id"], user_id, permissions=ChatPermissions())
+            await app.restrict_chat_member(served_chat["chat_id"], user.id, permissions=ChatPermissions())
             number_of_chats += 1
             await asyncio.sleep(1)
         except FloodWait as e:
@@ -268,8 +268,8 @@ async def unmute_globally(_, message):
     if not is_fmuted:
         await message.reply_text("I don't remember Fmuting him.")
     else:
-        server_chats = await get_served_chats()
-        chats = [int(chat["chat_id"]) for chat in server_chats]
+        served_chats = await get_served_chats()
+        chats = [int(chat["chat_id"]) for chat in served_chats]
     await remove_fmute_user(user.id)
     permissions=ChatPermissions()
     await message.chat.unban_member(int(chats["chat_id"]), int(user_id), int(permissions)) 
