@@ -647,13 +647,14 @@ async def mute_globally(_, message):
     is_fmuted = await is_fmuted_user(user.id)
     if  is_fmuted:
         await message.reply_text("Người này đã được xác nhận.")
+        
     else:
         
-    served_chats = await get_served_chats()
-    m = await message.reply_text(
-        f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
-        + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
-    )
+        served_chats = await get_served_chats()
+        m = await message.reply_text(
+            f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
+            + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
+        )
     await add_fmute_user(user_id)
     number_of_chats = 0
     for served_chat in served_chats:
