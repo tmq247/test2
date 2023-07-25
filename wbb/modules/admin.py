@@ -766,6 +766,22 @@ __**Người dùng được xác nhận**__
             await message.reply_text(
                 "Người dùng đã bật tiếng, nhưng hành động bật tiếng này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
             )
+#huy xacnhan
+@app.on_message(filters.command("huy") & ~filters.private)
+@adminsOnly("can_restrict_members")
+#@capture_err
+async def unmute_globally(_, message):
+    user_id = await extract_user(message)
+    if not user_id:
+        return await message.reply_text("Tôi không thể tìm thấy người dùng này.")
+    user = await app.get_users(user_id)
+
+    is_fmuted = await is_fmuted_user(user.id)
+    if not is_fmuted:
+        await message.reply_text("Tôi không nhớ đã xác nhận người này trên toàn hệ thống.")
+    else:
+        await remove_fmute_user(user.id)
+        await message.reply_text(f"Đã huỷ xác nhận {user.mention}.'")
 
 
 
