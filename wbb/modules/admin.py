@@ -674,7 +674,6 @@ async def mute_globally(_, message):
         )
     except Exception:
         pass
-    await message.reply_to_message.delete()
     await m.edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
     mute_text = f"""
 __**Người dùng bị cấm chat toàn hệ thống**__
@@ -698,6 +697,8 @@ __**Người dùng bị cấm chat toàn hệ thống**__
         await message.reply_text(
             "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
         )
+    if from_user
+        await message.reply_to_message.delete()
 
 
 # Unfmute
@@ -811,6 +812,7 @@ async def ban_deleted_accounts(_, message: Message):
     else:
         await m.edit("Không có tài khoản nào bị xóa trong cuộc trò chuyện này")
 
+#warn 
 
 @app.on_message(filters.command(["wa", "dw"]) & ~filters.private)
 @adminsOnly("can_restrict_members")
