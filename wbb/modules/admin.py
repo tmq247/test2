@@ -651,6 +651,8 @@ async def mute_globally(_, message: Message):
         
     else:
             #served_chats = await get_served_chats()
+            if from_user:
+                await message.reply_to_message.delete()
             m = await message.reply_text(
             f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
@@ -697,9 +699,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
              await message.reply_text(
             "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
         )
-    if from_user:
-            await message.reply_to_message.delete()
-
+    
 
 # Unfmute
 
