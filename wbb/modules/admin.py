@@ -634,6 +634,8 @@ async def mute_globally(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
     from_user = message.from_user
+    served_chats = await get_served_chats()
+    is_fmuted = await is_fmuted_user(user.id)
 
     if not user_id:
         return await message.reply_text("Tôi không thể tìm thấy người dùng đó.")
@@ -641,8 +643,6 @@ async def mute_globally(_, message: Message):
     if user_id in [from_user.id, BOT_ID] or user_id in SUDOERS:
         return await message.reply_text("Tôi không thể tắt tiếng người dùng đó.")
     
-    served_chats = await get_served_chats()
-    is_fmuted = await is_fmuted_user(user.id)
     if  is_fmuted:
         await message.reply_text("Người này đã được xác nhận.")
         
