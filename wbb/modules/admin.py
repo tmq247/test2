@@ -649,53 +649,53 @@ async def mute_globally(_, message: Message):
     #if from_user:
      #   await message.reply_to_message.delete()
     else:        
-    served_chats = await get_served_chats()
-    m = await message.reply_text(
-    f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
-    + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
-        )
-    await add_fmute_user(user_id)
-    number_of_chats = 0
-    for served_chat in served_chats:
+        served_chats = await get_served_chats()
+        m = await message.reply_text(
+        f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
+        + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
+            )
+        await add_fmute_user(user_id)
+        number_of_chats = 0
+        for served_chat in served_chats:
+            try:
+                await app.restrict_chat_member(served_chat["chat_id"], user.id, permissions=ChatPermissions())
+                number_of_chats += 1
+                await asyncio.sleep(1)
+            except FloodWait as e:
+                await asyncio.sleep(int(e.value))
+            except Exception:
+                pass
         try:
-            await app.restrict_chat_member(served_chat["chat_id"], user.id, permissions=ChatPermissions())
-            number_of_chats += 1
-            await asyncio.sleep(1)
-        except FloodWait as e:
-            await asyncio.sleep(int(e.value))
+            await app.send_message(
+                user.id,
+                f"Xin chào, Bạn đã bị cấm chat toàn hệ thống bởi {from_user.mention},"
+                f" Bạn hãy nhắn tin cho admin {reason or from_user.mention} để mở chat.",
+            )
         except Exception:
             pass
-    try:
-        await app.send_message(
-            user.id,
-            f"Xin chào, Bạn đã bị cấm chat toàn hệ thống bởi {from_user.mention},"
-            f" Bạn hãy nhắn tin cho admin {reason or from_user.mention} để mở chat.",
-        )
-    except Exception:
-        pass
-    await m.edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
-    mute_text = f"""
-__**Người dùng bị cấm chat toàn hệ thống**__
-**Tại nhóm :** {message.chat.title} [`{message.chat.id}`]
-**Quản trị viên:** {from_user.mention}
-**Người dùng bị cấm chat:** {user.mention}
-**ID người dùng bị cấm chat:** `{user_id}`
-**Lý do (admin) :** __{reason}__
-**Số nhóm:** `{number_of_chats}`"""
-    try:
-            await app.send_message(
-            FMUTE_LOG_GROUP_ID,
-            text=mute_text,
-            disable_web_page_preview=True,
-        )
-            await m.edit(
-            f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n Gửi voice cho {reason or from_user.mention} để được mỡ chat  💬💬💬**""",
-            disable_web_page_preview=True,
-        )
-    except Exception:
-             await message.reply_text(
-            "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
-        )
+        await m.edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
+        mute_text = f"""
+    __**Người dùng bị cấm chat toàn hệ thống**__
+    **Tại nhóm :** {message.chat.title} [`{message.chat.id}`]
+    **Quản trị viên:** {from_user.mention}
+    **Người dùng bị cấm chat:** {user.mention}
+    **ID người dùng bị cấm chat:** `{user_id}`
+    **Lý do (admin) :** __{reason}__
+    **Số nhóm:** `{number_of_chats}`"""
+        try:
+                await app.send_message(
+                FMUTE_LOG_GROUP_ID,
+                text=mute_text,
+                disable_web_page_preview=True,
+            )
+                await m.edit(
+                f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n Gửi voice cho {reason or from_user.mention} để được mỡ chat  💬💬💬**""",
+                disable_web_page_preview=True,
+            )
+        except Exception:
+                 await message.reply_text(
+                "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
+            )
     
 
 # Unfmute
