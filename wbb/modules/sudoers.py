@@ -161,7 +161,7 @@ __**New Global Ban**__
             disable_web_page_preview=True,
         )
         await m.edit(
-            f"Banned {user.mention} Globally!\nAction Log: {m2.link}",
+            f"Banned {user.mention} Globally!\nAction Log: ",
             disable_web_page_preview=True,
         )
     except Exception:
