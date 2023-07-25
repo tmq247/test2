@@ -630,7 +630,7 @@ async def unmute(_, message: Message):
 @app.on_message(filters.command("m") & ~filters.private)
 @adminsOnly("can_restrict_members")
 #@capture_err
-async def mute_globally(_, message):
+async def mute_globally(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
     from_user = message.from_user
@@ -651,7 +651,7 @@ async def mute_globally(_, message):
         
     else:
             #served_chats = await get_served_chats()
-            m = await message.reply_text(
+            await message.reply_text(
             f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
@@ -684,7 +684,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
 **Lý do (admin) :** __{reason}__
 **Số nhóm:** `{number_of_chats}`"""
     try:
-        m2 = await app.send_message(
+            await app.send_message(
             FMUTE_LOG_GROUP_ID,
             text=mute_text,
             disable_web_page_preview=True,
@@ -697,7 +697,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
         await message.reply_text(
             "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
         )
-    if from_user
+    if from_user:
         await message.reply_to_message.delete()
 
 
@@ -707,7 +707,7 @@ __**Người dùng bị cấm chat toàn hệ thống**__
 @app.on_message(filters.command("um") & ~filters.private)
 @adminsOnly("can_restrict_members")
 #@capture_err
-async def unmute_globally(_, message):
+async def unmute_globally(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     from_user = message.from_user
     if not user_id:
@@ -766,7 +766,7 @@ __**Người dùng được xác nhận**__
             )
         except Exception:
             await message.reply_text(
-                "Người dùng đã bật tiếng, nhưng hành động bật tiếng này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
+                "Người dùng đã được xác nhận, nhưng hành động này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
             )
 #huy xacnhan
 @app.on_message(filters.command("huy") & ~filters.private)
