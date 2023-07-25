@@ -1,5 +1,4 @@
-if from_user:
-            await message.reply_to_message.delete()"""
+"""
 MIT License
 
 Copyright (c) 2023 TheHamkerCat
