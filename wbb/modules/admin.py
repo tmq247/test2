@@ -651,7 +651,7 @@ async def mute_globally(_, message: Message):
         
     else:
             #served_chats = await get_served_chats()
-            await message.reply_text(
+            m = await message.reply_text(
             f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
@@ -674,7 +674,7 @@ async def mute_globally(_, message: Message):
         )
     except Exception:
         pass
-    await edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
+    await m.edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
     mute_text = f"""
 __**Người dùng bị cấm chat toàn hệ thống**__
 **Tại nhóm :** {message.chat.title} [`{message.chat.id}`]
