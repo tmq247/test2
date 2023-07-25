@@ -637,9 +637,6 @@ async def mute_globally(_, message: Message):
 
     if not user_id:
         return await message.reply_text("Tôi không thể tìm thấy người dùng đó.")
-        
-    #if not reason:
-        #return await message.reply("No reason provided.")
 
     if user_id in [from_user.id, BOT_ID] or user_id in SUDOERS:
         return await message.reply_text("Tôi không thể tắt tiếng người dùng đó.")
@@ -655,8 +652,6 @@ async def mute_globally(_, message: Message):
             f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
-            if message.command[0] == "m":
-                await message.reply_to_message.delete()
     await add_fmute_user(user_id)
     number_of_chats = 0
     for served_chat in served_chats:
