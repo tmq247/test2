@@ -58,6 +58,9 @@ from wbb.utils.dbfunctions import (
     add_fmute_user,
     is_fmuted_user,
     remove_fmute_user,
+    add_active_user,
+    is_actived_user,
+    remove_active_user,
 )
 
 __MODULE__ = "Admin"
@@ -635,6 +638,7 @@ async def mute_globally(_, message: Message):
     user = await app.get_users(user_id)
     from_user = message.from_user
     is_fmuted = await is_fmuted_user(user.id)
+    is_actived = await is_actived_user(user.id)
 
     if not user_id:
         return await message.reply_text("Tôi không thể tìm thấy người dùng đó.")
@@ -643,6 +647,9 @@ async def mute_globally(_, message: Message):
         return await message.reply_text("Tôi không thể tắt tiếng người dùng đó.")
     
     if is_fmuted:
+        return await message.reply_text("Người này đã bị cấm chat và đang đợi admin xác nhận .")
+
+    if is_actived:
         return await message.reply_text("Người này đã được xác nhận.")
         
     served_chats = await get_served_chats()
@@ -719,7 +726,8 @@ async def unmute_globally(_, message: Message):
             f"**Đang xác nhận {user.mention} trong hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
-        ###await remove_fmute_user(user.id) #####
+        await add_active_user(user.id)
+        await remove_fmute_user(user.id)
         number_of_chats = 0
         for served_chat in served_chats:
             try:
@@ -771,11 +779,11 @@ async def unmute_globally(_, message):
         return await message.reply_text("Tôi không thể tìm thấy người dùng này.")
     user = await app.get_users(user_id)
 
-    is_fmuted = await is_fmuted_user(user.id)
+    is_actived = await is_actived_user(user.id)
     if not is_fmuted:
         await message.reply_text("Tôi không nhớ đã xác nhận người này trên hệ thống.")
     else:
-        await remove_fmute_user(user.id)
+        await remove_active_user(user.id)
         await message.reply_text(f"Đã huỷ xác nhận {user.mention}.'")
 
 
