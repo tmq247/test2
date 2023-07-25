@@ -254,11 +254,11 @@ async def banFunc(_, message: Message):
         )
     if user_id in SUDOERS:
         return await message.reply_text(
-            "Bạn muốn cấm MỘT ĐẤNG?, KHÔNG ĐƯỢC ĐÂU :P!"
+            "Bạn muốn cấm thằng lỏ?, KHÔNG ĐƯỢC ĐÂU :P!"
         )
     if user_id in (await list_admins(message.chat.id)):
         return await message.reply_text(
-            "Ban tau à? Mở đi cưng."
+            "Đừng ban thằng lỏ này."
         )
 
     try:
