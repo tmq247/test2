@@ -724,7 +724,7 @@ async def unmute_globally(_, message):
             f"**Đang xác nhận {user.mention} trong hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
-        #await remove_fmute_user(user.id)
+        await remove_fmute_user(user.id) #####
         number_of_chats = 0
         for served_chat in served_chats:
             try:
