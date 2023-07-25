@@ -688,7 +688,6 @@ __**Người dùng bị cấm chat toàn hệ thống**__
             f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n Gửi voice cho {reason or from_user.mention} để được mỡ chat  💬💬💬**""",
             disable_web_page_preview=True,
         )
-    try:
         await message.reply_to_message.delete()
     except Exception:
         await message.reply_text(
