@@ -689,16 +689,16 @@ __**Người dùng bị cấm chat toàn hệ thống**__
             text=mute_text,
             disable_web_page_preview=True,
         )
-        await m.edit(
+            await m.edit(
             f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n Gửi voice cho {reason or from_user.mention} để được mỡ chat  💬💬💬**""",
             disable_web_page_preview=True,
         )
     except Exception:
-        await message.reply_text(
+             await message.reply_text(
             "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
         )
     if from_user:
-        await message.reply_to_message.delete()
+            await message.reply_to_message.delete()
 
 
 # Unfmute
