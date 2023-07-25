@@ -651,12 +651,12 @@ async def mute_globally(_, message: Message):
         
     else:
             #served_chats = await get_served_chats()
-            if from_user:
-                await message.reply_to_message.delete()
             m = await message.reply_text(
             f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
             + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
+            if message.command[0] == "m":
+                await message.reply_to_message.delete()
     await add_fmute_user(user_id)
     number_of_chats = 0
     for served_chat in served_chats:
