@@ -633,7 +633,7 @@ async def unmute(_, message: Message):
 async def mute_globally(_, message: Message):
     user_id, reason = await extract_user_and_reason(message)
     user = await app.get_users(user_id)
-    from_user = message.from_user(await message.reply_to_message.delete())
+    from_user = message.from_user
 
     if not user_id:
         return await message.reply_text("Tôi không thể tìm thấy người dùng đó.")
