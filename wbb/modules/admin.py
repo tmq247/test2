@@ -647,10 +647,7 @@ async def mute_globally(_, message: Message):
         await message.reply_text("Người này đã được xác nhận.")
         
     else:
-        if from_user:
-            await message.reply_to_message.delete()
-        try:
-            served_chats = await get_served_chats()
+        served_chats = await get_served_chats()
         m = await message.reply_text(
         f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
         + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
@@ -693,8 +690,8 @@ async def mute_globally(_, message: Message):
                 f"""**Đã cấm chat {user.mention} trên toàn hệ thống!!!\n Gửi voice cho {reason or from_user.mention} để được mỡ chat  💬💬💬**""",
                 disable_web_page_preview=True,
             )
-    except Exception:
-        await message.reply_text(
+        except Exception:
+                 await message.reply_text(
                 "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
             )
     
