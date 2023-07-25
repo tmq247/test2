@@ -60,9 +60,9 @@ __HELP__ = """
 
 /gstats - Để kiểm tra số liệu thống kê toàn cầu của Bot.
 
-/gban - Để cấm người dùng trên toàn cầu.
+/bf - Để cấm người dùng trên toàn cầu.
 
-/ungban - Bỏ cấm người dùng trên toàn cầu.
+/ubf - Bỏ cấm người dùng trên toàn cầu.
 
 /m - Tắt tiếng người dùng trên toàn cầu.
 
@@ -106,7 +106,7 @@ DISK: {disk}%
 # Gban
 
 
-@app.on_message(filters.command("gban") & SUDOERS)
+@app.on_message(filters.command("bf") & SUDOERS)
 @capture_err
 async def ban_globally(_, message):
     user_id, reason = await extract_user_and_reason(message)
@@ -173,7 +173,7 @@ __**New Global Ban**__
 # Ungban
 
 
-@app.on_message(filters.command("ungban") & SUDOERS)
+@app.on_message(filters.command("ubf") & SUDOERS)
 @capture_err
 async def unban_globally(_, message):
     user_id = await extract_user(message)
