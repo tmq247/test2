@@ -643,14 +643,16 @@ async def mute_globally(_, message: Message):
     if user_id in [from_user.id, BOT_ID] or user_id in SUDOERS:
         return await message.reply_text("Tôi không thể tắt tiếng người dùng đó.")
     
-    #if  is_fmuted:
-        #await message.reply_text("Người này đã được xác nhận.")
+    if  is_fmuted:
+        await message.reply_text("Người này đã được xác nhận.")
         
-    else:
-            served_chats = await get_served_chats()
-            m = await message.reply_text(
-            f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
-            + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
+    if from_user:
+        await message.reply_to_message.delete()
+        
+    served_chats = await get_served_chats()
+    m = await message.reply_text(
+    f"**Đang cấm chat {user.mention} trên toàn hệ thống!**"
+    + f" **Hành động này sẽ mất khoảng {len(served_chats)} giây.**"
         )
     await add_fmute_user(user_id)
     number_of_chats = 0
