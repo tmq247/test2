@@ -627,7 +627,7 @@ async def unmute(_, message: Message):
 # Fmute
 
 
-@app.on_message(filters.command("m", "dm" & ~filters.private)
+@app.on_message(filters.command("m", "dm") & ~filters.private)
 @adminsOnly("can_restrict_members")
 #@capture_err
 async def mute_globally(_, message: Message):
@@ -644,6 +644,9 @@ async def mute_globally(_, message: Message):
     
     if is_fmuted:
         return await message.reply_text("Người này đã được xác nhận.")
+
+    if message.command[0][0] == "d":
+        await message.reply_to_message.delete()
         
     served_chats = await get_served_chats()
     m = await message.reply_text(
