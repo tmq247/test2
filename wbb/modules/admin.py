@@ -674,7 +674,7 @@ async def mute_globally(_, message):
         )
     except Exception:
         pass
-        await edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
+    await m.edit(f"Đã cấm chat {user.mention} toàn hệ thống!")
     mute_text = f"""
 __**Người dùng bị cấm chat toàn hệ thống**__
 **Tại nhóm :** {message.chat.title} [`{message.chat.id}`]
