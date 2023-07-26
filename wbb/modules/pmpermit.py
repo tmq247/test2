@@ -67,9 +67,9 @@ async def pmpermit_func(_, message):
         results.results[0].id,
     )
 
-
+#filters.command("approve", prefixes=USERBOT_PREFIX)
 @app2.on_message(
-    filters.command("approve", prefixes=USERBOT_PREFIX)
+    filters.command("approve")
     & SUDOERS 
     & ~filters.via_bot
     & ~filters.forwarded
@@ -84,9 +84,9 @@ async def pm_approve(_, message):
     await approve_pmpermit(user_id)
     await eor(message, text="User is approved to pm")
 
-
+#filters.command("disapprove", prefixes=USERBOT_PREFIX)
 @app2.on_message(
-    filters.command("disapprove", prefixes=USERBOT_PREFIX)
+    filters.command("disapprove")
     & SUDOERS 
     & ~filters.via_bot
     & ~filters.forwarded
@@ -107,9 +107,9 @@ async def pm_disapprove(_, message):
     await disapprove_pmpermit(user_id)
     await eor(message, text="User is disapproved to pm")
 
-
+#filters.command("block", prefixes=USERBOT_PREFIX)
 @app2.on_message(
-    filters.command("block", prefixes=USERBOT_PREFIX)
+    filters.command("block")
     & SUDOERS
     & ~filters.via_bot
     & ~filters.forwarded
@@ -123,9 +123,9 @@ async def block_user_func(_, message):
     await eor(message, text="Successfully blocked the user")
     await app2.block_user(user_id)
 
-
+#filters.command("unblock", prefixes=USERBOT_PREFIX)
 @app2.on_message(
-    filters.command("unblock", prefixes=USERBOT_PREFIX)
+    filters.command("unblock")
     & SUDOERS 
     & ~filters.via_bot
     & ~filters.forwarded
