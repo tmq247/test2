@@ -9,9 +9,9 @@ __HELP__ = """
     Roll a dice.
 """
 
-
+#filters.command("dice", prefixes=USERBOT_PREFIX)
 @app2.on_message(
-    filters.command("dice", prefixes=USERBOT_PREFIX)
+    filters.command("dice")
     & SUDOERS
     & ~filters.forwarded
     & ~filters.via_bot)
