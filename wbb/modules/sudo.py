@@ -108,7 +108,7 @@ async def userdel(_, message: Message):
 
 
 @app2.on_message(
-    filters.command("sudoers", prefixes=USERBOT_PREFIX)
+    filters.command("sudoers") 
     & ~filters.forwarded
     & ~filters.via_bot
     & SUDOERS
