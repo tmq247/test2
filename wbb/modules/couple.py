@@ -85,7 +85,7 @@ async def couple(_, message):
                     user = await app.get_users(i.user.id)
                     list_of_users.append(user.id)
             if len(list_of_users) < 2:
-                return await m.edit("Not enough users")
+                return await m.edit("Không đủ người dùng")
             c1_id = random.choice(list_of_users)
             c2_id = random.choice(list_of_users)
             while c1_id == c2_id:
@@ -106,7 +106,7 @@ __Cặp đôi mới trong ngày có thể được chọn lúc 12 giờ trưa {t
             c2_id = int(is_selected["c2_id"])
             c1_name = (await app.get_users(c1_id)).first_name
             c2_name = (await app.get_users(c2_id)).first_name
-            couple_selection_message = f"""Couple of the day:
+            couple_selection_message = f"""Cặp đôi của ngày:
 [{c1_name}](tg://openmessage?user_id={c1_id}) + [{c2_name}](tg://openmessage?user_id={c2_id}) = ❤️
 
 __Cặp đôi mới trong ngày có thể được chọn lúc 12 giờ trưa {tomorrow()}__"""
