@@ -87,7 +87,7 @@ async def upvote(_, message):
         new_karma = {"karma": karma}
         await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     await message.reply_text(
-        f"Incremented Karma of {user_mention} By 1 \nTotal Points: {karma}"
+        f"Tăng Karma của {user_mention} lên 1 \nTổng số điểm: {karma}"
     )
 
 
