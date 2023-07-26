@@ -80,12 +80,12 @@ async def _get_tasks_text():
         )
     return text
 
-
+#& filters.command("lsTasks", prefixes=USERBOT_PREFIX)
 @app2.on_message(
     SUDOERS
     & ~filters.forwarded
     & ~filters.via_bot
-    & filters.command("lsTasks", prefixes=USERBOT_PREFIX)
+    & filters.command("lsTasks")
 )
 async def task_list(_, message: Message):
     if message.from_user.is_self:
