@@ -439,7 +439,7 @@ async def add_active_user(user_id: int):
 
 async def remove_active_user(user_id: int):
     is_actived = await is_actived_user(user_id)
-    if not is_fmuted:
+    if not is_actived:
         return
     return await activesdb.delete_one({"user_id": user_id})
 
