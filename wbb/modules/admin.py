@@ -780,7 +780,7 @@ async def unmute_globally(_, message):
     user = await app.get_users(user_id)
 
     is_actived = await is_actived_user(user.id)
-    if not is_fmuted:
+    if not is_actived:
         await message.reply_text("Tôi không nhớ đã xác nhận người này trên hệ thống.")
     else:
         await remove_active_user(user.id)
