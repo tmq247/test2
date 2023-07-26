@@ -26,9 +26,9 @@ from pyrogram import filters
 
 from wbb import BOT_ID, SUDOERS, USERBOT_PREFIX, app2
 
-
+#filters.command("alive", prefixes=USERBOT_PREFIX)
 @app2.on_message(
-    filters.command("alive", prefixes=USERBOT_PREFIX)
+    filters.command("alive")
     & ~filters.forwarded
     & ~filters.via_bot
     & SUDOERS
