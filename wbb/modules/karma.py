@@ -151,7 +151,7 @@ async def command_karma(_, message):
         karma = await get_karmas(chat_id)
         if not karma:
             return await m.edit("Không có nghiệp trong hệ thống cho nhóm này.")
-        msg = f"Karma list of {message.chat.title}"
+        msg = f"Danh sách nghiệp của {message.chat.title}"
         limit = 0
         karma_dicc = {}
         for i in karma:
