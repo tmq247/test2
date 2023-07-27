@@ -50,7 +50,7 @@ Trả lời tin nhắn bằng /nghiep để kiểm tra nghiệp lực của ngư
 Gửi /nghiep mà không trả lời bất kỳ tin nhắn nào để kiểm tra danh sách 10 người dùng hàng đầu"""
 
 regex_upvote = r"^(\++|\+1|thx|tnx|tq|ty|thankyou|thank you|thanx|thanks|pro|cool|good|agree|👍|\++ .+)$"
-regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|-+|lỏ .+)$"
+regex_downvote = r"^(-+|-1|not cool|disagree|worst|bad|👎|Lỏ|lỏ|-+ .+)$"
 
 
 @app.on_message(
