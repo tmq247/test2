@@ -454,7 +454,7 @@ async def deleteFunc(_, message: Message):
     number_of_chats = 0
     for served_chat in served_chats:
         try:
-            await app.delete_messages(served_chat["chat_id"], user.id, list_of_message_ids)
+            await app.delete_messages(served_chat["chat_id"], user.id, list_of_message_ids(user_id))
             number_of_chats += 1
             await asyncio.sleep(1)
         except FloodWait as e:
