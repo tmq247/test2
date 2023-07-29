@@ -204,7 +204,7 @@ async def broadcast_message(_, message):
     sleep_time = 0.1
     #text = message.reply_to_message.text.markdown
     #reply_message = message.reply_to_message
-    x = message.reply_to_message.message_id
+    x = message_id
     y = message.chat.id
 
     reply_markup = None
