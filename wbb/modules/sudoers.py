@@ -204,7 +204,7 @@ async def broadcast_message(_, message):
     sleep_time = 0.1
     #text = message.reply_to_message.text.markdown
     #reply_message = message.reply_to_message
-    x = message_id
+    x = message.reply_to_message.message_id
     y = message.chat.id
 
     reply_markup = None
@@ -223,6 +223,8 @@ async def broadcast_message(_, message):
                 y,
                 x,
             )
+            if message.reply_to_message
+                    else await app.send_message(i, text=query)
             await asyncio.sleep(sleep_time)
             sent += 1
         except FloodWait as e:
