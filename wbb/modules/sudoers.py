@@ -192,7 +192,11 @@ async def unban_globally(_, message):
 
 
 # Broadcast
-
+# await app.send_message(
+   #             i,
+  #              text=text,
+ #               reply_markup=reply_markup,
+#            )
 
 @app.on_message(filters.command("up") & SUDOERS)
 @capture_err
@@ -212,10 +216,10 @@ async def broadcast_message(_, message):
     )
     for i in chats:
         try:
-            await app.send_message(
+            await app.forward_messages(
                 i,
-                text=text,
-                reply_markup=reply_markup,
+                from_chat_id=message.chat.id,
+                message_ids=message.id,
             )
             await asyncio.sleep(sleep_time)
             sent += 1
