@@ -224,7 +224,7 @@ async def broadcast_message(_, message):
                 x,
             )
             if message.reply_to_message
-                    else await app.send_message(i, text=query)
+            else await app.send_message(i, text=query)
             await asyncio.sleep(sleep_time)
             sent += 1
         except FloodWait as e:
