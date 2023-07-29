@@ -192,7 +192,7 @@ async def unban_globally(_, message):
 
 
 # Broadcast
-
+#await app.send_message
 
 @app.on_message(filters.command("up") & SUDOERS)
 @capture_err
@@ -212,7 +212,7 @@ async def broadcast_message(_, message):
     )
     for i in chats:
         try:
-            await app.send_message(
+            await app.forward_messages(
                 i,
                 text=text,
                 reply_markup=reply_markup,
