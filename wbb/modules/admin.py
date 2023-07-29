@@ -468,7 +468,7 @@ async def deleteFunc(_, message: Message):
 # Promote Members
 
 
-@app.on_message(filters.command(["promote", "fullpromote"]) & ~filters.private)
+@app.on_message(filters.command(["pm", "fullpromote"]) & ~filters.private)
 @adminsOnly("can_promote_members")
 async def promoteFunc(_, message: Message):
     user_id = await extract_user(message)
@@ -504,13 +504,13 @@ async def promoteFunc(_, message: Message):
     await message.chat.promote_member(
         user_id=user_id,
         privileges=ChatPrivileges(
-            can_change_info=False,
+            can_change_info=bot.can_change_info=False,
             can_invite_users=bot.can_invite_users,
             can_delete_messages=bot.can_delete_messages,
             can_restrict_members=False,
-            can_pin_messages=False,
+            can_pin_messages=bot.can_pin_messages=False,
             can_promote_members=False,
-            can_manage_chat=bot.can_manage_chat,
+            can_manage_chat=bot.can_manage_chat=False,
             can_manage_video_chats=bot.can_manage_video_chats,
         ),
     )
