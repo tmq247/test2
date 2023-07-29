@@ -202,7 +202,7 @@ async def unban_globally(_, message):
 @capture_err
 async def broadcast_message(_, message):
     sleep_time = 0.1
-    text = message.reply_to_message.text.markdown
+    text = message.reply_to_message.text#.markdown
     reply_message = message.reply_to_message.message_id
     test = message.chat.id
 
