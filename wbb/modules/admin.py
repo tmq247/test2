@@ -445,7 +445,7 @@ async def list_unban_(c, message: Message):
 @app.on_message(filters.command("del") & ~filters.private)
 @adminsOnly("can_delete_messages")
 async def deleteFunc(_, message: Message):
-    user_id = await extract_user(message)
+    user_id = await extract_user(message)#
     user = await app.get_users(user_id)#
     from_user = message.from_user#
     if not message.reply_to_message:
@@ -454,7 +454,7 @@ async def deleteFunc(_, message: Message):
     number_of_chats = 0
     for served_chat in served_chats:
         try:
-            await app.delete_messages(served_chat["chat_id"], user.id, list_of_message_ids())
+            await app.delete_messages(served_chat["chat_id"], list_of_message_ids(user.id))
             number_of_chats += 1
             await asyncio.sleep(1)
         except FloodWait as e:
