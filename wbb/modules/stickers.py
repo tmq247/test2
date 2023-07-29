@@ -216,7 +216,7 @@ async def kang(client, message: Message):
                 stickerset = await create_sticker_set(
                     client,
                     message.from_user.id,
-                    f"stiker của {message.from_user.first_name[:32]} tại @nguhanh69",
+                    f"sticker của {message.from_user.first_name[:32]} tại @nguhanh69",
                     packname,
                     [sticker],
                 )
