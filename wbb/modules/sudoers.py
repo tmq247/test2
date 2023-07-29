@@ -192,11 +192,7 @@ async def unban_globally(_, message):
 
 
 # Broadcast
-await app.send_message(
-                i,
-                text=text,
-                reply_markup=reply_markup,
-            )
+
 
 @app.on_message(filters.command("up") & SUDOERS)
 @capture_err
