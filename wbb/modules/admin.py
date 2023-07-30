@@ -713,7 +713,8 @@ __**Người dùng bị cấm chat toàn hệ thống**__
         await message.reply_text(
             "Người dùng bị cấm chat, nhưng hành động cấm chat này không được ghi lại, hãy thêm tôi vào nhóm quản lý"
         )
-    
+    if reply_message
+        await message.reply_to_message.delete()
 
 # Unfmute
 
